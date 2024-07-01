@@ -72,29 +72,50 @@ const fs = require('fs');
 
 //---------------------------------------------------------------
 
- const http = require('http');
-// const server = http.createServer((req, res) => {
-//     res.setHeader('Content-Type', 'text/plain');
-//     res.write('<html> <head> <title> Node.js </title> </head> <body> <h1> Hello World! </h1> </body> </html>');
-//     res.end();
-// });
+const http = require('http');
+
+const data = 'index.html';
+const server = http.createServer((req, res) => {
+    res.setHeader('Content-Type', 'text/plain');
+
+    if (req.url === '/login') {
+        res.write('data');
+    
+        res.end();
+    }
+    else {
+        res.write('data');
+        res.end();
+    }
+});
+
+    //try to read index.html file
+
+ fs.readFileSync('index.html', 'utf8', (err, data) => {
+     if (err) {
+         console.log(err);
+     }
+     res.write(data);
+     res.end();
+ });
+
 
 const port = 3000;
 const host = 'localhost';
 
 server.listen(port, host, () => {
     console.log(`Server is running on http://${host}:${port}`);
+
 });
+
 
 //---------------------------------------------------------------
 
 //manage user login, if request is /login then show login page else show home page
-const server = http.createServer((req, res) => {
-    if (req.url === '/login') {
-        res.write('<html> <head> <title> Login Page </title> </head> <body> <h1> Login Page </h1> </body> </html>');
-        res.end();
-    } else {
-        res.write('<html> <head> <title> Home Page </title> </head> <body> <h1> Home Page </h1> </body> </html>');
-        res.end();
-    }
-});
+
+
+
+
+//---------------------------------------------------------------
+// make index.html file and read it
+
